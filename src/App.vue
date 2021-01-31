@@ -1,8 +1,6 @@
 <template>
   <div id="app">
 
-      <div class="title">&nbsp;</div>
-
       <div class="carousel">
         <flickity ref="flickity" :options="flickityOptions">
           <div class="carousel-cell">
@@ -41,7 +39,6 @@
           <svg @click="previous()" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 11.7 19.8" style="enable-background:new 0 0 11.7 19.8;" xml:space="preserve">
           <path d="M11.7,1.8L9.9,0L0,9.9l9.9,9.9l1.8-1.8L3.5,9.9C3.5,9.9,11.7,1.8,11.7,1.8z"/>
           </svg>
-          <!-- <span>1 / 5</span> -->
           <svg @click="next()" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 11.7 19.8" style="enable-background:new 0 0 11.7 19.8;" xml:space="preserve">
           <path d="M0,18l1.8,1.8l9.9-9.9L1.8,0L0,1.8l8.1,8.1C8.1,9.9,0,18,0,18z"/>
           </svg>
@@ -96,6 +93,10 @@ export default {
     }
   }
 }
+
+// 100vh on mobile
+let vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty('--vh', `${vh}px`);
 </script>
 
 <style>
@@ -108,12 +109,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  position: absolute;
-  height: 100%;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .carousel {
@@ -129,7 +127,6 @@ body {
 }
 
 .carousel-cell {
-  /* height: 70vh; */
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -155,11 +152,6 @@ body {
   bottom: 0;
 }
 
-.title,
-.info {
-  padding: 1rem;
-}
-
 .info,
 .controls {
   display: flex;
@@ -167,12 +159,22 @@ body {
   align-items: center;
 }
 
+.info {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.info span {
+  padding: 1rem;
+}
+
 .controls {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .controls svg {
   height: 20px;
