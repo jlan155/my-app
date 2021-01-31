@@ -3,31 +3,51 @@
 
       <div class="title">&nbsp;</div>
 
-      <flickity ref="flickity" :options="flickityOptions">
-        <div class="carousel-cell"><img alt="" src="./assets/jer_japan_01.jpg"></div>
-        <div class="carousel-cell"><img alt="" src="./assets/jer_japan_02.jpg"></div>
-        <div class="carousel-cell"><img alt="" src="./assets/jer_japan_03.jpg"></div>
-        <div class="carousel-cell"><img alt="" src="./assets/jer_japan_04.jpg"></div>
-        <div class="carousel-cell"><img alt="" src="./assets/jer_japan_05.jpg"></div>
-      </flickity>
+      <div class="carousel">
+        <flickity ref="flickity" :options="flickityOptions">
+          <div class="carousel-cell">
+            <div class="carousel-image">
+              <img alt="" :src="imageOne">
+            </div>
+          </div>
+          <div class="carousel-cell">
+            <div class="carousel-image">
+              <img alt="" :src="imageTwo">
+            </div>
+            </div>
+          <div class="carousel-cell">
+            <div class="carousel-image">
+              <img alt="" :src="imageThree">
+            </div>
+            </div>
+          <div class="carousel-cell">
+            <div class="carousel-image">
+              <img alt="" :src="imageFour">
+            </div>
+            </div>
+          <div class="carousel-cell">
+            <div class="carousel-image">
+              <img alt="" :src="imageFive">
+            </div>
+            </div>
+        </flickity>
+      </div>
 
       <div class="info">
 
-        <span class="">{{ artist }}</span>
+        <span>{{ artist }}</span>
 
         <span class="controls">
           <svg @click="previous()" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 11.7 19.8" style="enable-background:new 0 0 11.7 19.8;" xml:space="preserve">
           <path d="M11.7,1.8L9.9,0L0,9.9l9.9,9.9l1.8-1.8L3.5,9.9C3.5,9.9,11.7,1.8,11.7,1.8z"/>
           </svg>
-
-          <span>1 / 5</span>
-
+          <!-- <span>1 / 5</span> -->
           <svg @click="next()" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 11.7 19.8" style="enable-background:new 0 0 11.7 19.8;" xml:space="preserve">
           <path d="M0,18l1.8,1.8l9.9-9.9L1.8,0L0,1.8l8.1,8.1C8.1,9.9,0,18,0,18z"/>
           </svg>
         </span>
 
-        <span class="next-proj">Next Project</span>
+        <span v-on:click="nextProj" class="next-proj">Next Project</span>
 
       </div>
 
@@ -50,16 +70,29 @@ export default {
         pageDots: false,
         wrapAround: true
       },
-      artist: 'Josh Epstein-Richards'
+      artist: 'Josh Epstein-Richards',
+      imageOne: require('./assets/jer_japan_01.jpg'),
+      imageTwo: require('./assets/jer_japan_02.jpg'),
+      imageThree: require('./assets/jer_japan_03.jpg'),
+      imageFour: require('./assets/jer_japan_04.jpg'),
+      imageFive: require('./assets/jer_japan_05.jpg')
     }
   },
   methods: {
     next() {
       this.$refs.flickity.next();
     },
-    
     previous() {
       this.$refs.flickity.previous();
+    }
+    ,
+    nextProj() {
+      this.artist = 'Sammy Taylor',
+      this.imageOne = require('./assets/st_japan_01.jpg'),
+      this.imageTwo = require('./assets/st_japan_02.jpg'),
+      this.imageThree = require('./assets/st_japan_03.jpg'),
+      this.imageFour = require('./assets/st_japan_04.jpg'),
+      this.imageFive = require('./assets/st_japan_05.jpg')
     }
   }
 }
@@ -74,7 +107,6 @@ body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   position: absolute;
   height: 100%;
@@ -84,16 +116,43 @@ body {
   justify-content: space-between;
 }
 
-.carousel-cell {
-  height: 70vh;
+.carousel {
+  top: 4.5rem;
+  position: absolute;
   width: 100%;
 }
 
+.carousel .carousel-cell,
+.carousel .flickity-enabled,
+.carousel .flickity-viewport{
+  height: calc(100vh - 9rem);
+}
+
+.carousel-cell {
+  /* height: 70vh; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.carousel-image {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
 .carousel-cell img {
-  display: block;
-  max-height: 100%;
+  object-fit: contain;
+  border: none;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
-  margin: 0 auto;
+  max-height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .title,
@@ -108,10 +167,30 @@ body {
   align-items: center;
 }
 
+.controls {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
 .controls svg {
   height: 20px;
   margin: 0 1rem;
   cursor: pointer;
+  fill: #2c3e50;
+}
+
+.next-proj {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 480px) {
+
+  .controls {
+    display: none;
+  }
+
 }
 
 </style>
