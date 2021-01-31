@@ -114,12 +114,6 @@ body {
   width: 100%;
 }
 
-.carousel {
-  top: 4.5rem;
-  position: absolute;
-  width: 100%;
-}
-
 .carousel .carousel-cell,
 .carousel .flickity-enabled,
 .carousel .flickity-viewport{
@@ -187,14 +181,20 @@ body {
   cursor: pointer;
 }
 
+@media screen and (min-width: 480px) {
+
+  .carousel {
+    top: 4.5rem;
+    position: absolute;
+    width: 100%;
+  }
+
+}
+
 @media screen and (max-width: 480px) {
 
   .controls {
     display: none;
-  }
-
-  .carousel {
-    top: 3rem;
   }
 
 }
