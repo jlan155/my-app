@@ -193,6 +193,10 @@ body {
     display: none;
   }
 
+  .carousel {
+    top: 3rem;
+  }
+
 }
 
 </style>
